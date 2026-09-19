@@ -1,5 +1,7 @@
 package fr.formation.reactif.tp01_flow;
 
+import fr.formation.reactif.tp01_flow.myflow.Lecteur;
+
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalTime;

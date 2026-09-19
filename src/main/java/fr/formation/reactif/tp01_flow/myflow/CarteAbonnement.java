@@ -1,4 +1,4 @@
-package fr.formation.reactif.tp01_flow;
+package fr.formation.reactif.tp01_flow.myflow;
 
 /**
  * TP 1 Flow - Etape 3 : la carte d'abonnement, le lien entre l'editeur maison et un lecteur.
