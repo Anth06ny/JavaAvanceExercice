@@ -1,5 +1,7 @@
 package fr.formation.prog_concurrente.tp01_premier_thread;
 
+import fr.formation.data.WeatherApiDataSource;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -24,7 +26,7 @@ public class WeatherUI extends JFrame {
         jtfAnswer = new JTextField(5);
         jlMessage = new JLabel("Ici pour écrire un message");
         progressBar = new JProgressBar();
-        progressBar.setVisible(true);
+        progressBar.setVisible(false);
         progressBar.setIndeterminate(true);
 
 
@@ -55,8 +57,21 @@ public class WeatherUI extends JFrame {
 
         //clic
         jbPositive.addActionListener(e -> {
-            //clic sur le bouton positif
-            jlMessage.setText("coucou");
+            progressBar.setVisible(true);
+
+            new Thread(() -> {
+                var weather =  new WeatherApiDataSource(false).loadWeather("Toulouse");
+
+                //clic sur le bouton positif
+                jlMessage.setText(weather.toString());
+
+                progressBar.setVisible(false);
+
+            }).start();
+
+
+
+
         });
     }
 

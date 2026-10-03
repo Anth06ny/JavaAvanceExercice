@@ -21,7 +21,7 @@ public class MurDesCatastrophe {
     public static void main(String[] args) throws Exception {
         System.out.println("=".repeat(70));
 
-        final int CATASTROPHE = 5;
+        final int CATASTROPHE = 4;
 
         switch (CATASTROPHE) {
             case 1 -> scene1LeCompteurQuiMent();
