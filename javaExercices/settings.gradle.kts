@@ -1,1 +1,1 @@
-rootProject.name = "JavaConcurrenceCorrection"
+rootProject.name = "JavaExercice"

@@ -1,7 +1,6 @@
 package fr.formation.data;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import java.net.URI;
@@ -204,15 +203,13 @@ public class WeatherApiDataSource {
 
     /**
      * Extrait les 3 informations utiles du JSON renvoye par l'API.
+     * <p>
+     * Gson construit le record ReponseApi par reflexion, a partir des noms des champs JSON.
      */
     private Weather parse(String json) {
-        JsonObject root = gson.fromJson(json, JsonObject.class);
+        ReponseApi reponse = gson.fromJson(json, ReponseApi.class);
 
-        String name = root.get("name").getAsString();
-        double temperature = root.getAsJsonObject("main").get("temp").getAsDouble();
-        double wind = root.getAsJsonObject("wind").get("speed").getAsDouble();
-
-        return new Weather(name, temperature, wind);
+        return new Weather(reponse.name(), reponse.main().temp(), reponse.wind().speed());
     }
 
 
