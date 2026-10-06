@@ -1,12 +1,6 @@
 package fr.formation.agent;
 
-import net.bytebuddy.agent.builder.AgentBuilder;
-import net.bytebuddy.asm.Advice;
-import net.bytebuddy.matcher.ElementMatchers;
-
-import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.Instrumentation;
-import java.security.ProtectionDomain;
 
 /**
  * TP 3 (Journalisation et supervision) - INTERCEPTER SANS TOUCHER AU CODE
