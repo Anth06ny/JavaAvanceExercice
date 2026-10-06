@@ -21,7 +21,7 @@ public class Tp3Proxy {
 
         System.out.println("--- Création du service");
 
-        //A FAIRE : remplacer l'objet reel par un proxy qui l'enveloppe
+        //TODO : remplacer l'objet reel par un proxy qui l'enveloppe et utilisé le proxy
         MeteoService service = new MeteoServiceImpl();
 
         System.out.println("--- Appel simple");
@@ -30,14 +30,7 @@ public class Tp3Proxy {
         System.out.println("--- Appel qui en declenche d'autres en interne");
         System.out.println(service.meteoDeuxVilles("Niort", "Nantes"));
 
-        System.out.println("--- Ville inconnue : quelle exception arrive ici ?");
-        try {
-            service.meteo("Atlantide");
-        } catch (RuntimeException e) {
-            System.out.println("Exception reçue : " + e.getClass().getName());
-            System.out.println("            cause : "
-                    + (e.getCause() == null ? "aucune" : e.getCause().getClass().getName()));
-            System.out.println("          message : " + e.getMessage());
-        }
+
+
     }
 }
