@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TP 4 (Journalisation et supervision) - OBSERVER UNE JVM QUI SOUFFRE
- * <p>
  * Un traitement de commandes meteo qui tourne en continu.
  * A lancer avec les options de VM : -Xmx64m -XX:+HeapDumpOnOutOfMemoryError
  */

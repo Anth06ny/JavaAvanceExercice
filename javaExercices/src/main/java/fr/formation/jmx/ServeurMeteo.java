@@ -8,11 +8,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * TP 4 (Journalisation et supervision) - OBSERVER UNE JVM QUI SOUFFRE
- * <p>
  * Un petit serveur meteo : 4 clients demandent en boucle le bulletin d'une ville au hasard.
- * Il tourne sans fin et n'affiche rien : tout l'enjeu du TP est de savoir ce qu'il fait,
- * de l'exterieur, sans l'arreter.
  */
 public class ServeurMeteo {
 
