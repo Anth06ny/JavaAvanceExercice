@@ -44,3 +44,4 @@ bin/
 ### Racine ###
 .idea/
 /meteoWithModule/
+/serveur.jfr
