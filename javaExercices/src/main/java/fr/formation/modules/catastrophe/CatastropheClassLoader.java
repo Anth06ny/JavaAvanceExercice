@@ -36,6 +36,11 @@ public class CatastropheClassLoader {
             package java.lang;
 
             public class String {
+
+                static {
+                    System.out.println(">>> le FAUX String vient d'etre chargé <<<");
+                }
+
                 public int length() {
                     return 42;
                 }
@@ -124,13 +129,14 @@ public class CatastropheClassLoader {
             """;
 
     public static void main(String[] args) throws Exception {
-        final int SCENE = 1;
+        final int SCENE = 4;
 
         preparer();
 
         switch (SCENE) {
 
             // SCENE 1 : on pose notre propre java.lang.String dans le classpath de l'application
+            // On lance le main de APP_STRING qui utilise java.lang.String pour voir s'il utilise le notre
             case 1 -> lancerProcessus("SCENE 1 : le faux String", "faux-string", "app-string");
 
             // SCENE 2 : on charge une classe rangee dans un package java.*
