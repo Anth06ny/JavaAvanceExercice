@@ -130,4 +130,14 @@ public class MeteoAsync {
         // TODO pour les plus rapides
         throw new UnsupportedOperationException("TODO pour les plus rapides");
     }
+
+    private static String forceDuVent(double vent) {
+        if (vent < 5) {
+            return "faible";
+        }
+        if (vent <= VENT_FORT) {
+            return "modéré";
+        }
+        return "fort";
+    }
 }
