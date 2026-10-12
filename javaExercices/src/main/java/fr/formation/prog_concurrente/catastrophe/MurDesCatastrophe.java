@@ -28,8 +28,8 @@ public class MurDesCatastrophe {
             case 2 -> scene2LaCollectionQuiPerdDesDonnees();
             case 3 -> scene3LeDrapeauQuiNeSArreteJamais();
             case 4 -> scene4LaMemoireQuiExplose();
-            case 5 -> scene5LeProgrammeQuiSeFige();
-            case 6 -> scene6LErreurQuePersonneNeVoit();
+            case 5 -> scene5LErreurQuePersonneNeVoit();
+            case 6 -> scene6LeProgrammeQuiSeFige();
             default -> System.out.println("Choisissez une valeur entre 1 et 6.");
         }
         System.out.println("=".repeat(70));
@@ -291,15 +291,50 @@ Un ou plusieurs threads tournent en boucle infinie à l'intérieur de HashMap.pu
         System.out.println(">> passe par le systeme d'exploitation.");
         System.out.println();
         System.out.println(">> NOTEZ CES DEUX CHIFFRES : " + crees + " threads, " + duree + " ms.");
-        System.out.println(">> Cette scene est la seule du mur qui n'aura pas sa reponse");
-        System.out.println(">> aujourd'hui. Rendez-vous demain matin.");
 
         System.exit(0);   // on n'attend pas la fin des dodos
     }
 
 
     // =========================================================================
-    // SCENE 5 : LE PROGRAMME QUI SE FIGE
+    // SCENE 5 : L'ERREUR QUE PERSONNE NE VOIT
+    // -------------------------------------------------------------------------
+    // Une tache soumise a un pool leve une exception. La console reste vide.
+    // L'application continue comme si tout allait bien.
+    // =========================================================================
+
+    private static void scene5LErreurQuePersonneNeVoit() throws InterruptedException {
+        System.out.println("SCENE 5 : l'erreur que personne ne voit");
+        System.out.println("=".repeat(70));
+
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+
+        System.out.println("--- Tache soumise avec submit() ---");
+        executor.submit(() -> {
+            throw new IllegalStateException("La base de donnees est injoignable !");
+        });
+        Thread.sleep(500);
+        System.out.println(">>Aucune trace. L'application continue...");
+        System.out.println();
+
+        System.out.println("--- La meme, soumise avec execute() ---");
+        executor.execute(() -> {
+            throw new IllegalStateException("La base de donnees est injoignable !");
+        });
+        Thread.sleep(500);
+        System.out.println();
+
+        executor.shutdown();
+        executor.awaitTermination(1, TimeUnit.SECONDS);
+
+        System.out.println(">> Deux lignes de code presque identiques.");
+        System.out.println(">> Une seule vous previent que votre traitement a echoue.");
+        System.out.println(">> Combien de submit() y a-t-il dans votre code ?");
+    }
+
+
+    // =========================================================================
+    // SCENE 6 : LE PROGRAMME QUI SE FIGE
     // -------------------------------------------------------------------------
     // Deux threads transferent de l'argent entre deux comptes, mais pas dans
     // le meme sens. Chacun attend le verrou que l'autre detient.
@@ -308,8 +343,8 @@ Un ou plusieurs threads tournent en boucle infinie à l'intérieur de HashMap.pu
     private static final Object COMPTE_A = new Object();
     private static final Object COMPTE_B = new Object();
 
-    private static void scene5LeProgrammeQuiSeFige() throws InterruptedException {
-        System.out.println("SCENE 5 : le programme qui se fige");
+    private static void scene6LeProgrammeQuiSeFige() throws InterruptedException {
+        System.out.println("SCENE 6 : le programme qui se fige");
         System.out.println("=".repeat(70));
 
         Thread versB = new Thread(() -> {
@@ -357,51 +392,11 @@ Un ou plusieurs threads tournent en boucle infinie à l'intérieur de HashMap.pu
                 }
             }
             System.out.println();
-            System.out.println(">> A essayer maintenant, avant de passer a la suite :");
-            System.out.println(">>   jcmd " + ProcessHandle.current().pid() + " Thread.print");
-            System.out.println(">> Cherchez la ligne 'Found one Java-level deadlock'.");
             System.exit(0);
         } else {
             System.out.println();
             System.out.println(">> Pas de blocage cette fois. Relancez : ca finira par arriver.");
         }
-    }
-
-
-    // =========================================================================
-    // SCENE 6 : L'ERREUR QUE PERSONNE NE VOIT
-    // -------------------------------------------------------------------------
-    // Une tache soumise a un pool leve une exception. La console reste vide.
-    // L'application continue comme si tout allait bien.
-    // =========================================================================
-
-    private static void scene6LErreurQuePersonneNeVoit() throws InterruptedException {
-        System.out.println("SCENE 6 : l'erreur que personne ne voit");
-        System.out.println("=".repeat(70));
-
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-
-        System.out.println("--- Tache soumise avec submit() ---");
-        executor.submit(() -> {
-            throw new IllegalStateException("La base de donnees est injoignable !");
-        });
-        Thread.sleep(500);
-        System.out.println(">>Aucune trace. L'application continue...");
-        System.out.println();
-
-        System.out.println("--- La meme, soumise avec execute() ---");
-        executor.execute(() -> {
-            throw new IllegalStateException("La base de donnees est injoignable !");
-        });
-        Thread.sleep(500);
-        System.out.println();
-
-        executor.shutdown();
-        executor.awaitTermination(1, TimeUnit.SECONDS);
-
-        System.out.println(">> Deux lignes de code presque identiques.");
-        System.out.println(">> Une seule vous previent que votre traitement a echoue.");
-        System.out.println(">> Combien de submit() y a-t-il dans votre code ?");
     }
 
 

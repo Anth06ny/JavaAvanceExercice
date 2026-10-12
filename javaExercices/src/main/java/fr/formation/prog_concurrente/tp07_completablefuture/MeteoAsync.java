@@ -56,10 +56,10 @@ public class MeteoAsync {
 
     /**
      * Lance l'appel et renvoie tout de suite un CompletableFuture
-     * qui contiendra le texte formate, par exemple "Niort : 18°C, vent faible".
+     * qui contiendra le texte de la meteo (son toString), par exemple "Niort : 19,4°C, vent 4,7 m/s".
      */
     public CompletableFuture<String> meteoEnTexte(String ville) {
-        // TODO etape 2 : supplyAsync, puis thenApply avec formater
+        // TODO etape 2 : supplyAsync, puis thenApply avec le toString de Weather
         throw new UnsupportedOperationException("TODO étape 2");
     }
 
@@ -82,12 +82,12 @@ public class MeteoAsync {
     // =========================================================================
 
     /**
-     * Comme appelParallele, mais renvoie des textes formates.
+     * Comme appelParallele, mais renvoie le texte de chaque meteo (son toString).
      * Si l'appel d'une ville echoue, son texte devient "Inconnue : météo indisponible",
      * et les autres villes s'affichent normalement.
      */
     public List<String> tableauDeBordTolerant(List<String> villes) {
-        // TODO etape 4 : thenApply avec formater, puis exceptionally
+        // TODO etape 4 : thenApply avec le toString de Weather, puis exceptionally
         throw new UnsupportedOperationException("TODO étape 4");
     }
 
@@ -129,26 +129,5 @@ public class MeteoAsync {
     public List<Weather> appelParalleleThreadsVirtuels(List<String> villes) {
         // TODO pour les plus rapides
         throw new UnsupportedOperationException("TODO pour les plus rapides");
-    }
-
-    // =========================================================================
-    //  Utilitaires
-    // =========================================================================
-    /**
-     * Met en forme une meteo : "Niort : 18°C, vent faible".
-     * Deja ecrite : a utiliser dans les etapes suivantes.
-     */
-    public static String formater(Weather meteo) {
-        return meteo.city() + " : " + Math.round(meteo.temperature()) + "°C, vent " + forceDuVent(meteo.wind());
-    }
-
-    private static String forceDuVent(double vent) {
-        if (vent < 5) {
-            return "faible";
-        }
-        if (vent <= VENT_FORT) {
-            return "modéré";
-        }
-        return "fort";
     }
 }

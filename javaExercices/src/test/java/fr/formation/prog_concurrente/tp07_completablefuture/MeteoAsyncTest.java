@@ -49,13 +49,6 @@ class MeteoAsyncTest {
     }
 
     @Test
-    void etape0_formater_dejaEcrit() {
-        assertEquals("Niort : 19°C, vent faible", MeteoAsync.formater(new Weather("Niort", 19.4, 4.7)));
-        assertEquals("Nantes : 18°C, vent modéré", MeteoAsync.formater(new Weather("Nantes", 17.9, 6.7)));
-        assertEquals("Brest : 14°C, vent fort", MeteoAsync.formater(new Weather("Brest", 14.2, 12.5)));
-    }
-
-    @Test
     void etape1_appelParallele_memeResultatQueSequentiel_etPlusRapide() {
         long debut = System.currentTimeMillis();
         List<Weather> resultat = meteo.appelParallele(CINQ_VILLES);
@@ -73,7 +66,7 @@ class MeteoAsyncTest {
         long duree = System.currentTimeMillis() - debut;
 
         assertTrue(duree < DUREE_APPEL / 2, "La methode doit rendre la main sans attendre l'appel (" + duree + " ms)");
-        assertEquals(MeteoAsync.formater(fake("Niort")), futur.join());
+        assertEquals(fake("Niort").toString(), futur.join());
     }
 
     @Test
@@ -109,9 +102,9 @@ class MeteoAsyncTest {
         List<String> resultat = meteo.tableauDeBordTolerant(List.of("Niort", "Inconnue", "Brest"));
 
         assertEquals(List.of(
-                MeteoAsync.formater(fake("Niort")),
+                fake("Niort").toString(),
                 "Inconnue : météo indisponible",
-                MeteoAsync.formater(fake("Brest"))), resultat);
+                fake("Brest").toString()), resultat);
     }
 
     @Test
@@ -126,7 +119,7 @@ class MeteoAsyncTest {
 
     @Test
     void etape5_meteoAvecDelai_delaiRespecte() {
-        assertEquals(MeteoAsync.formater(fake("Niort")),
+        assertEquals(fake("Niort").toString(),
                 meteo.meteoAvecDelai("Niort", Duration.ofMillis(3 * DUREE_APPEL)).join());
     }
 
