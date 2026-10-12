@@ -59,19 +59,8 @@ public class WeatherUI extends JFrame {
         jbPositive.addActionListener(e -> {
             progressBar.setVisible(true);
 
-            new Thread(() -> {
-                var weather =  new WeatherApiDataSource(false).loadWeather("Toulouse");
-
-                //clic sur le bouton positif
-                jlMessage.setText(weather.toString());
-
-                progressBar.setVisible(false);
-
-            }).start();
-
-
-
-
+            //clic sur le bouton positif
+            jlMessage.setText("Hello");
         });
     }
 
