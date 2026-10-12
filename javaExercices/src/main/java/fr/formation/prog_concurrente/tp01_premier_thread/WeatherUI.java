@@ -19,6 +19,11 @@ public class WeatherUI extends JFrame {
     public WeatherUI() {
         //Appel du constructeur parent
         super("Weather");
+        try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         //construct components
         jbPositive = new JButton("Chercher");
