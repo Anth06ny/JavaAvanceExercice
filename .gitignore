@@ -45,3 +45,4 @@ bin/
 .idea/
 /meteoWithModule/
 /serveur.jfr
+*.hprof

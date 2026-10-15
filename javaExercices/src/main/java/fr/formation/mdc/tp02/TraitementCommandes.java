@@ -2,6 +2,8 @@ package fr.formation.mdc.tp02;
 
 import fr.formation.data.Weather;
 import fr.formation.data.WeatherApiDataSource;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -15,9 +17,12 @@ import java.util.concurrent.ThreadLocalRandom;
  * Chaque commande passe par plusieurs etapes, et les lignes des 4 threads s'entrelacent.
  * Une ville sur trois n'existe pas : sa commande echoue.
  * <p>
- * Point de depart : tous les affichages sont des System.out.println, a remplacer par des logs.
+ * Point de depart : le logger et les logs sont en commentaire, car le projet ne compile pas
+ * sans logback-classic, ajoute au TP 1. Il faut les decommenter (imports, logger et appels).
  */
 public class TraitementCommandes {
+
+    //private static final Logger log = LoggerFactory.getLogger(TraitementCommandes.class);
 
 
     /** Une ville sur trois ne fait pas partie des donnees fictives : sa commande echoue. */
@@ -38,7 +43,7 @@ public class TraitementCommandes {
     public static void main(String[] args) {
         TraitementCommandes traitement = new TraitementCommandes();
         long debut = System.currentTimeMillis();
-        System.out.println("Début du lot : " + VILLES.size() + " commandes");
+        //log.info("Début du lot : {} commandes", VILLES.size());
 
         // Pool fixe : les 4 threads sont reutilises d'une commande a l'autre
         try (ExecutorService executor = Executors.newFixedThreadPool(4)) {
@@ -49,7 +54,7 @@ public class TraitementCommandes {
             }
         }   // attend la fin de toutes les commandes
 
-        System.out.println("Fin du lot en " + (System.currentTimeMillis() - debut) + " ms");
+        //log.info("Fin du lot en {} ms", System.currentTimeMillis() - debut);
     }
 
     /**
@@ -60,20 +65,20 @@ public class TraitementCommandes {
      * @param ville    ville dont on veut la meteo
      */
     public void traiter(String commande, String ville) {
-        System.out.println("Début du traitement");
+        //log.info("Début du traitement");
         try {
             pause();
-            System.out.println("Appel de l'API météo");
+            //log.debug("Appel de l'API météo");
             Weather meteo = source.loadWeather(ville);
-            System.out.println("Météo reçue : " + meteo);
+            //log.debug("Météo reçue : {}", meteo);
 
             pause();
             if (meteo.wind() > VENT_FORT) {
-                System.out.println("Vent fort, livraison retardée");
+                //log.warn("Vent fort, livraison retardée");
             }
-            System.out.println("Commande terminée");
+            //log.info("Commande terminée");
         } catch (RuntimeException e) {
-            System.out.println("Échec de la commande : " + e.getMessage());
+            //log.error("Échec de la commande", e);
         }
     }
 
