@@ -129,7 +129,7 @@ public class CatastropheClassLoader {
             """;
 
     public static void main(String[] args) throws Exception {
-        final int SCENE = 4;
+        final int SCENE = 1;
 
         preparer();
 

@@ -83,7 +83,7 @@ public class CatastropheClasspath {
             """;
 
     public static void main(String[] args) throws Exception {
-        final int SCENE = 2;
+        final int SCENE = 1;
 
         //Compile et génère le jarr des 2 bibliothèques et le jar de l'application
         preparer();
